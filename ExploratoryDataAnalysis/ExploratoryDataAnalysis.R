@@ -1,4 +1,5 @@
 rm(list=ls())
+# http://www.lac.inpe.br/~rafael.santos/Docs/CAP394/WholeStory-Iris.html
 
 install.packages("readxl")
 install.packages("dplyr")
