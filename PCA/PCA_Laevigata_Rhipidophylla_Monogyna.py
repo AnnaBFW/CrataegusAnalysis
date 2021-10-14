@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # get dataframe
 df = pd.read_csv('RearrangedTable.csv')
-df_new = df.drop(df.columns[[2, 4, 6, 7]], axis=1) # deleting data about tot_radius, fr_width and sepals
+df_new = df.drop(df.columns[[0, 2, 4, 6, 7]], axis=1) # deleting data about tot_radius, fr_width and sepals
 
 # deleting all rows with nan
 df_clean = df_new.dropna()
