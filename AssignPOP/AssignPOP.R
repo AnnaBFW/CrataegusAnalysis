@@ -28,8 +28,12 @@ df_sub <- df_sub %>%
                                samp_target == 4 ~ 'Rhipidophylla',
                                samp_target == 5 ~ 'Monogyna'))
 
+install.packages("corrr")
+library(corrr)
+first_col(df_sub,rownames(df_sub), var="ID")
+
 #Convert your sample ID to factor data type, because they are numeric 
-df_sub$samp_target <- as.factor(df_sub$samp_target)
+df_sub$ID <- as.factor(df_sub$ID)
 
 # Monte-Carlo cross-validation
 assign.MC(df_sub, train.inds=c(0.5, 0.7, 0.9), iterations=30, pca.method=TRUE, model="tree",
