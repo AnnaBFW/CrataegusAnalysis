@@ -1,6 +1,8 @@
+rm(list=ls())
+
 setwd("C:/Users/anna.zoechner/OneDrive - Bundesforschungszentrum fuer Wald/Dokumente/GitHub/CrataegusAnalysis/AssignPOP")
 
-crataegus_morph <- read.csv("RearrangedTable.csv", na="NA")
+crataegus_morph <- read.csv("RearrangedTable.csv", na="NA", header=TRUE)
 
 # Create Dataframe from .csv File
 # Exclude data about sepals
@@ -30,10 +32,11 @@ df_sub <- df_sub %>%
 
 install.packages("corrr")
 library(corrr)
-first_col(df_sub,rownames(df_sub), var="ID")
+df_sub <- first_col(df_sub,rownames(df_sub), var="ID")
+df_sub <- df_sub[-c(2)]
 
-#Convert your sample ID to factor data type, because they are numeric 
-df_sub$ID <- as.factor(df_sub$ID)
+# Convert your sample ID to factor data type, because they are numeric 
+df_sub[,1] <- as.factor(df_sub[,1])
 
 # Monte-Carlo cross-validation
 assign.MC(df_sub, train.inds=c(0.5, 0.7, 0.9), iterations=30, pca.method=TRUE, model="tree",
