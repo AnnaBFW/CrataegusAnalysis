@@ -1,3 +1,5 @@
+rm(list=ls())
+
 install.packages("readxl")
 install.packages("dplyr")
 library(readxl)
@@ -6,7 +8,7 @@ library(dplyr)
 
 ## Data preparation ##
 
-setwd("C:/Users/anna.zoechner/OneDrive - Bundesforschungszentrum fuer Wald/Dokumente/Beginning/Statistical Analysis")
+setwd("C:/Users/anna.zoechner/OneDrive - Bundesforschungszentrum fuer Wald/Dokumente/GitHub/Ploidy_data")
 
 
 # Read in table with morphometric data
@@ -59,7 +61,9 @@ hist(df_sub_M$ploidy,breaks=seq(0,4,l=17),xlim=c(0,4),ylim=c(0,250))
 # Correlations between Variables
 par(mfrow=c(1,1))
 corr <- cor(df_sub[,3:9])
-round(corr, 3)
+corr_matrix <- round(corr, 3)
+
+write.table(corr_matrix,"Correlation_matrix.csv", row.names = FALSE)
 
 pairs(df_sub[,3:9])
 
@@ -117,6 +121,11 @@ df_pca <- df_sub[-c(1,4,5)]
 
 crat_pca_clean <-  prcomp(df_pca[,c(2:6)], center = TRUE,scale. = TRUE)
 
+# PCA with selected features but without ploidy
+df_pca_withoutploidy <- df_sub[-c(1,4,5,9)]
+
+crat_pca_clean_withoutploidy <-  prcomp(df_pca_withoutploidy[,c(2:5)], center = TRUE,scale. = TRUE)
+
 
 # Visualize PCA
 # install_github("vqv/ggbiplot")
@@ -136,4 +145,6 @@ autoplot(crat_pca_morph, data = df_sub, colour = 'samp_target' )
 # PCA with disk_radius, fr_length, fr_pos, styles 
 autoplot(crat_pca_clean, data = df_pca, colour = 'samp_target' )
 
+# PCA with selected features but without ploidy
+autoplot(crat_pca_clean_withoutploidy, data = df_pca_withoutploidy, colour = 'samp_target' )
 
