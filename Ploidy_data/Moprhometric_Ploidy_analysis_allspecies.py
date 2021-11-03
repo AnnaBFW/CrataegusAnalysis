@@ -19,9 +19,9 @@ df_ploidy_clean = df_ploidy.dropna()
 ploidy_array = df_ploidy_clean.iloc[:,2:].values
 ploidy_array_brackets = np.array(ploidy_array).ravel()
 ploidy = [x[:-1] for x in ploidy_array_brackets]
-int_ploidy = [float(item) for item in ploidy]
+float_ploidy = [float(item) for item in ploidy]
 
-df_ploidy_clean['ploidy'] = int_ploidy
+df_ploidy_clean.loc[:,'ploidy'] = float_ploidy
 
 # Adding column with sample target to the df_ploidy
 
