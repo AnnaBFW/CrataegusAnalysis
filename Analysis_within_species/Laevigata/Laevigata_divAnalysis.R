@@ -41,7 +41,7 @@ ploidy = df_sub[10]
 
 # Summary for each column (feature)
 summary(df)
-
+#write.csv(summary(df), file="Summary.csv")
 # Boxplot
 par(mar=c(7,5,1,1)) # more space to labels
 boxplot(df_sub[-c(1,2,3)],las=2)
