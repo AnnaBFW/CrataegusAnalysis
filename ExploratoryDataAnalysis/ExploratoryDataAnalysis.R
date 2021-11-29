@@ -56,6 +56,7 @@ hist(df_sub$fr_width)
 hist(df_sub$fr_pos)
 hist(df_sub$styles)
 
+
 # Compare features of each species
 
 par(mfrow=c(1,3))
@@ -107,24 +108,19 @@ beanplot(xcrat, main = "Crataegus fruits",
 corr <- cor(df_sub[,2:7])
 round(corr, 3)
 
-pairs(df_sub[,2:7])
+library(corrplot)
 
-# Are the (visual) correlations different for each class?
-pairs(df_sub[,2:7],col=df_sub[,1],oma=c(4,4,6,12))
-par(xpd=TRUE)
-legend(0.85,0.6, as.vector(unique(df_sub$samp_target)),fill=c(1,2,3))
-
-
-# decision tree
-install.packages("C50")
-library(C50)
-input <- df_sub[,2:7]
-output <- df_sub[,1]
-
-model1 <- C5.0(input, output, control = C5.0Control(noGlobalPruning = TRUE,minCases=1))
-plot(model1, main="C5.0 Decision Tree - Unpruned, min=1")
-
-
+col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
+corrplot(corr,
+         method="shade", # visualisation method
+         shade.col=NA, # colour of shade line
+         tl.col="black", # colour of text label
+         tl.srt=45, # text label rotation
+         col=col(200), # colour of glyphs
+         addCoef.col="black", # colour of coefficients
+         order="AOE" # ordering method
+)
+         
 
 
 
