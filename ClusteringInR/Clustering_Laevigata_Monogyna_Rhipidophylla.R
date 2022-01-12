@@ -48,7 +48,24 @@ library(fpc)
 plotcluster(df_sub, fit$cluster)
 
 
+# Alternative approach
 
+library(factoextra)
+library(cluster)
+
+# Scale the data
+df_scaled <- scale(df_sub[-c(1)])
+
+# KMeans with 3 cluster
+set.seed(1) # make it reproducable 
+
+km <- kmeans(df_scaled, centers = 3, nstart = 25)
+
+# Plot the model
+fviz_cluster(km, data = df_scaled)
+
+# Find mean values for each feature and each species
+aggregate(df_sub[-c(1,2)], by=list(cluster=km$cluster), mean)
 
 
 
